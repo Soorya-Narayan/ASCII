@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ASCII Real-time Converter</title>
+    <meta name="description" content="Convert live camera feed and photos into beautiful ASCII art in real-time." />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>ASCII Vision</h1>
+        <p class="subtitle">Live real-time ASCII art engine</p>
+      </header>
+
+      <main class="main-container">
+        <div class="display-wrapper">
+          <canvas id="output-canvas"></canvas>
+          <div id="three-container" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+        </div>
+
+        <aside class="controls-panel">
+          <div class="control-group">
+            <label>Input Source</label>
+            <div class="button-group">
+              <button id="btn-camera" class="active">Camera</button>
+              <button id="btn-photo">Photo</button>
+            </div>
+          </div>
+
+          <div id="camera-controls" class="control-group">
+            <button id="toggle-camera" class="primary">Start Camera</button>
+          </div>
+
+          <div id="photo-controls" class="control-group" style="display: none;">
+            <div class="file-input-wrapper">
+              <button class="primary">Upload Photo</button>
+              <input type="file" id="file-upload" accept="image/*" />
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>Image Controls</label>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div>
+                <span style="font-size: 10px; color: var(--text-dim);">Brightness</span>
+                <input type="range" id="brightness" min="0" max="2" step="0.1" value="1" />
+              </div>
+              <div>
+                <span style="font-size: 10px; color: var(--text-dim);">Contrast</span>
+                <input type="range" id="contrast" min="0" max="2" step="0.1" value="1" />
+              </div>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>Resolution</label>
+            <input type="range" id="resolution" min="50" max="300" value="120" />
+            <span id="res-value" style="font-size: 10px; color: var(--text-dim);">120px width</span>
+          </div>
+
+          <div class="control-group">
+            <label>Mode & Style</label>
+            <div class="button-group">
+              <button id="mode-3d">3D Depth</button>
+              <button id="mode-source">RGB</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>Character Set</label>
+            <div class="button-group" style="grid-template-columns: 1fr 1fr; grid-template-rows: auto;">
+              <button id="charset-standard" class="active">Std</button>
+              <button id="charset-detailed">Detailed</button>
+              <button id="charset-minimal">Min</button>
+              <button id="charset-binary">0/1</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>Color Theme</label>
+            <div class="button-group">
+              <button id="mode-green" class="active">Matrix</button>
+              <button id="mode-bw">White</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <button id="download-btn">Download Image</button>
+          </div>
+        </aside>
+      </main>
+
+      <!-- Hidden elements for processing -->
+      <video id="hidden-video" autoplay playsinline muted></video>
+      <canvas id="processing-canvas"></canvas>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
